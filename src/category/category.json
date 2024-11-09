@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "djkabhdkjbaidqiondn",
+    "category": "A",
+    "description": "Categoria A",
+    "events": [
+      {
+        "name": "VITORIA",
+        "operation": "+",
+        "valor": 30
+      },
+      {
+        "name": "VITORIA_LIDER",
+        "operation": "+",
+        "valor": 50
+      },
+      {
+        "name": "DERROTA",
+        "operation": "+",
+        "valor": 0
+      }
+    ],
+    "players": [
+      {
+        "_id": "djkabhdkjbaidqiondn"
+      },
+      {
+        "_id": "djkabhdkjbaidqiondn"
+      }
+    ]
+  }
+]
