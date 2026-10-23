@@ -53,7 +53,7 @@ export class ChallengesService {
      * Verifica se o solicitante é um dos jogadores da partida
      */
     const applicantPlayerMatch = await createChallengeDto.players.filter(
-      (player) => player._id == createChallengeDto.applicant
+      (player) => player._id.equals(createChallengeDto.applicant._id)
     );
 
     this.logger.log(`applicantPlayerMatch: ${applicantPlayerMatch}`);
@@ -149,7 +149,7 @@ export class ChallengesService {
      * Verifica se o jogador vencedor faz parte do desafio
      */
     const playerFilter = challengeFound.players.filter(
-      (player) => player._id == linkChallengeMatchDto.def
+      (player) => player._id.equals(linkChallengeMatchDto.def._id)
     );
 
     this.logger.log(`challengeFound: ${challengeFound}`);
