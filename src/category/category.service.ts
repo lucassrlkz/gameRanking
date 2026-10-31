@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Category } from '../common/interfaces/category.interface';
 import { CreateCategoryDto } from './dtos/createCategory.dto';
@@ -75,10 +75,11 @@ export class CategoryService {
 
     notExist(categoryFound, `Categoria ${category} não cadastrada`);
 
-    isExist(
-      playerAlreadyLinked,
-      `Jogador ${playerId} já cadastrado na categoria ${playerAlreadyLinked.category}`
-    );
+    if (playerAlreadyLinked) {
+      throw new BadRequestException(
+        `Jogador ${playerId} já cadastrado na categoria ${playerAlreadyLinked.category}`
+      );
+    }
 
     categoryFound.players.push(playerId);
 
