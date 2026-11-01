@@ -1,3 +1,4 @@
+import {describe, beforeEach, expect, it, jest} from '@jest/globals';
 import { BadRequestException } from '@nestjs/common';
 import { CategoryService } from './category.service';
 
@@ -7,9 +8,9 @@ describe('CategoryService', () => {
   let playersService: any;
 
   beforeEach(() => {
-    categoryModel = jest.fn().mockImplementation((data) => ({
+    categoryModel = jest.fn((data: Record<string, unknown>) => ({
       ...data,
-      save: jest.fn().mockResolvedValue({ _id: 'category-1', ...data }),
+      save: jest.fn(async () => ({ _id: 'category-1', ...data })),
     }));
     categoryModel.findOne = jest.fn();
     categoryModel.findOneAndUpdate = jest.fn();
@@ -23,7 +24,7 @@ describe('CategoryService', () => {
 
   it('should create a category when it does not exist', async () => {
     categoryModel.findOne.mockReturnValue({
-      exec: jest.fn().mockResolvedValue(null),
+      exec: jest.fn(async () => null),
     });
 
     const dto = {
@@ -45,7 +46,7 @@ describe('CategoryService', () => {
 
   it('should reject duplicate category creation', async () => {
     categoryModel.findOne.mockReturnValue({
-      exec: jest.fn().mockResolvedValue({ category: 'Categoria A' }),
+      exec: jest.fn(async () => ({ category: 'Categoria A' })),
     });
 
     await expect(
@@ -72,14 +73,14 @@ describe('CategoryService', () => {
 
       if (callIndex === 1) {
         return {
-          exec: jest.fn().mockResolvedValue(category),
+          exec: jest.fn(async () => category),
         };
       }
 
       return {
         where: jest.fn().mockReturnThis(),
         in: jest.fn().mockReturnThis(),
-        exec: jest.fn().mockResolvedValue(null),
+        exec: jest.fn(async () => null),
       };
     });
 

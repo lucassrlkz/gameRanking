@@ -1,3 +1,4 @@
+import {describe, beforeEach, expect, it, jest} from '@jest/globals';
 import { BadRequestException } from '@nestjs/common';
 import { ChallengesService } from './challenges.service';
 import { ChallengeStatus } from '../common/interfaces/challengeStatus.enum';
@@ -25,9 +26,9 @@ describe('ChallengesService', () => {
   let playersService: any;
 
   beforeEach(() => {
-    challengeModel = jest.fn().mockImplementation(function (data) {
+    challengeModel = jest.fn(function (data: Record<string, any>) {
       const challenge = { ...data };
-      challenge.save = jest.fn().mockImplementation(async () => ({
+      challenge.save = jest.fn(async () => ({
         _id: 'challenge-1',
         ...challenge,
       }));
@@ -36,9 +37,9 @@ describe('ChallengesService', () => {
     challengeModel.findById = jest.fn();
     challengeModel.findOneAndUpdate = jest.fn();
 
-    matchModel = jest.fn().mockImplementation((data) => ({
+    matchModel = jest.fn((data: Record<string, any>) => ({
       ...data,
-      save: jest.fn().mockResolvedValue({ _id: 'match-1', ...data }),
+      save: jest.fn(async () => ({ _id: 'match-1', ...data })),
     }));
 
     categoryService = {
@@ -145,7 +146,7 @@ describe('ChallengesService', () => {
     };
 
     challengeModel.findById.mockReturnValue({
-      exec: jest.fn().mockResolvedValue(challenge),
+      exec: jest.fn(async () => challenge),
     });
 
     await service.linkChallengeToMatch('challenge-1', {

@@ -1,3 +1,4 @@
+import{ describe, beforeEach, expect, jest, it} from '@jest/globals';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { PlayersService } from './players.service';
 
@@ -6,9 +7,9 @@ describe('PlayersService', () => {
   let playerModel: any;
 
   beforeEach(() => {
-    playerModel = jest.fn().mockImplementation((data) => ({
+    playerModel = jest.fn((data: Record<string, any>) => ({
       ...data,
-      save: jest.fn().mockResolvedValue({ _id: 'player-1', ...data }),
+      save: jest.fn(async () => ({ _id: 'player-1', ...data })),
     }));
     playerModel.findOne = jest.fn();
 
@@ -17,7 +18,7 @@ describe('PlayersService', () => {
 
   it('should create a player when email is not registered', async () => {
     playerModel.findOne.mockReturnValue({
-      exec: jest.fn().mockResolvedValue(null),
+      exec: jest.fn(async () => null),
     });
 
     const dto = {
@@ -39,7 +40,7 @@ describe('PlayersService', () => {
 
   it('should reject duplicate email registration', async () => {
     playerModel.findOne.mockReturnValue({
-      exec: jest.fn().mockResolvedValue({ email: 'joao@email.com' }),
+      exec: jest.fn(async () => ({ email: 'joao@email.com' })),
     });
 
     await expect(
@@ -60,7 +61,7 @@ describe('PlayersService', () => {
     };
 
     playerModel.findOne.mockReturnValue({
-      exec: jest.fn().mockResolvedValue(player),
+      exec: jest.fn(async () => player),
     });
 
     await expect(service.findPlayerById('player-1')).resolves.toEqual(player);
@@ -68,7 +69,7 @@ describe('PlayersService', () => {
 
   it('should throw when searching for an inexistent player', async () => {
     playerModel.findOne.mockReturnValue({
-      exec: jest.fn().mockResolvedValue(null),
+      exec: jest.fn(async () => null),
     });
 
     await expect(service.findPlayerById('player-404')).rejects.toThrow(
