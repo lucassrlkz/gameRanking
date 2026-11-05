@@ -135,16 +135,16 @@ A API escuta na porta `8080` e estará disponível em `http://localhost:8080`.
 
 ## Docker
 
-Construa a imagem e inicie o container informando a URI de conexão do MongoDB:
+O container precisa receber a URI do MongoDB em `DB_CONNECTION`; essa configuração não deve ser embutida na imagem. Inicie-o informando uma instância MongoDB acessível:
 
 ```bash
-docker build -t game-ranking .
+docker build -t game-ranking-api:latest .
 docker run --rm -p 8080:8080 \
-  -e DB_CONNECTION=mongodb://host.docker.internal:27017/gameRanking \
-  game-ranking
+  -e DB_CONNECTION="mongodb://host.docker.internal:27017/gameRanking" \
+  game-ranking-api:latest
 ```
 
-Em Linux, se o MongoDB estiver rodando na máquina host, use `--add-host=host.docker.internal:host-gateway` no comando `docker run`. Se o MongoDB estiver em outro container, informe o nome do serviço/container e use uma rede Docker compartilhada.
+Em Linux, se o MongoDB estiver rodando na máquina host, acrescente `--add-host=host.docker.internal:host-gateway` ao `docker run`. Se o MongoDB estiver em outro container, conecte os containers à mesma rede Docker e use o nome do serviço/container no lugar de `host.docker.internal`. Sem `DB_CONNECTION`, a aplicação informa explicitamente que a configuração está faltando.
 
 ## Testes e qualidade
 
