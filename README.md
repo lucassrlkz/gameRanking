@@ -133,6 +133,19 @@ A criação de um desafio valida os participantes, o solicitante e a categoria a
 
 A API escuta na porta `8080` e estará disponível em `http://localhost:8080`.
 
+## Docker
+
+Construa a imagem e inicie o container informando a URI de conexão do MongoDB:
+
+```bash
+docker build -t game-ranking .
+docker run --rm -p 8080:8080 \
+  -e DB_CONNECTION=mongodb://host.docker.internal:27017/gameRanking \
+  game-ranking
+```
+
+Em Linux, se o MongoDB estiver rodando na máquina host, use `--add-host=host.docker.internal:host-gateway` no comando `docker run`. Se o MongoDB estiver em outro container, informe o nome do serviço/container e use uma rede Docker compartilhada.
+
 ## Testes e qualidade
 
 ```bash
