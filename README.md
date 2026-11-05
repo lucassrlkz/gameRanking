@@ -21,14 +21,14 @@ Os estados possíveis de um desafio são `PENDENTE`, `ACEITO`, `NEGADO`, `REALIZ
 | --- | --- |
 | Node.js | Ambiente de execução |
 | TypeScript | Linguagem da aplicação |
-| NestJS 10 | Framework da API e organização por módulos |
+| NestJS 12 | Framework da API e organização por módulos |
 | Express | Plataforma HTTP usada pelo NestJS |
 | MongoDB | Banco de dados |
 | Mongoose | Conexão com o MongoDB, schemas e modelos |
 | `class-validator` e `class-transformer` | Validação e transformação de dados de entrada |
 | `dotenv` | Leitura de variáveis de ambiente |
 | `moment-timezone` | Formatação de datas no fuso horário configurado |
-| Jest e Supertest | Testes unitários e end-to-end |
+| Jest | Testes unitários e end-to-end |
 | ESLint e Prettier | Análise estática e formatação |
 | Nest CLI | Execução e build da aplicação |
 
