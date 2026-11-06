@@ -135,16 +135,27 @@ A API escuta na porta `8080` e estará disponível em `http://localhost:8080`.
 
 ## Docker
 
-O container precisa receber a URI do MongoDB em `DB_CONNECTION`; essa configuração não deve ser embutida na imagem. Inicie-o informando uma instância MongoDB acessível:
+A API recebe a URI do MongoDB pela variável `DB_CONNECTION`. Para usar um MongoDB hospedado externamente com Docker Compose:
 
-```bash
-docker build -t game-ranking-api:latest .
-docker run --rm -p 8080:8080 \
-  -e DB_CONNECTION="mongodb://host.docker.internal:27017/gameRanking" \
-  game-ranking-api:latest
-```
+1. Na raiz do projeto, crie ou edite o arquivo `.env` (ele é ignorado pelo Git) e configure a URI fornecida pelo serviço MongoDB:
 
-Em Linux, se o MongoDB estiver rodando na máquina host, acrescente `--add-host=host.docker.internal:host-gateway` ao `docker run`. Se o MongoDB estiver em outro container, conecte os containers à mesma rede Docker e use o nome do serviço/container no lugar de `host.docker.internal`. Sem `DB_CONNECTION`, a aplicação informa explicitamente que a configuração está faltando.
+   ```dotenv
+   DB_CONNECTION=mongodb+srv://<usuario>:<senha>@<cluster>/<database>?retryWrites=true&w=majority
+   ```
+
+   Substitua o exemplo pela URI real do provedor. Se usuário ou senha contiver caracteres especiais, codifique-os conforme as regras de URI. Não publique nem compartilhe esse arquivo.
+
+2. Construa a imagem e inicie a API:
+
+   ```bash
+   docker compose up --build
+   ```
+
+   O Compose carrega automaticamente as variáveis do `.env` para substituir `${DB_CONNECTION}` no `compose.yaml`. Também é possível definir `DB_CONNECTION` no ambiente do terminal antes de executar o comando. Se ela não estiver definida, o Compose interrompe a inicialização e informa o que falta.
+
+3. Acesse a API em `http://localhost:8080`. O MongoDB remoto não é iniciado pelo Compose; o container da API precisa conseguir acessar o endereço do banco pela rede, e o provedor precisa permitir essa conexão.
+
+Para parar a API, use `docker compose down`. A URI é passada ao container em tempo de execução, não embutida na imagem.
 
 ## Testes e qualidade
 
