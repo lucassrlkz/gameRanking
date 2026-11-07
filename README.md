@@ -175,3 +175,16 @@ npm run lint
 # Formatação
 npm run format
 ```
+
+## CI/CD
+
+O GitHub Actions executa lint, testes unitários e end-to-end, build da aplicação e build da imagem Docker em pull requests e pushes para `main` ou `master`.
+
+Ao enviar uma tag começando com `v` (por exemplo, `v1.0.0`), o workflow também publica a imagem no GitHub Container Registry (`ghcr.io`) com a tag da versão e `latest`:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Esse fluxo publica a imagem; o deploy em um ambiente de execução deve ser configurado separadamente conforme a infraestrutura utilizada.
