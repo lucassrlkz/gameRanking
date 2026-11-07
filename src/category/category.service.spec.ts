@@ -1,4 +1,4 @@
-import {describe, beforeEach, expect, it, jest} from '@jest/globals';
+import { describe, beforeEach, expect, it, jest } from '@jest/globals';
 import { BadRequestException } from '@nestjs/common';
 import { CategoryService } from './category.service';
 
@@ -35,7 +35,9 @@ describe('CategoryService', () => {
 
     const result = await service.createCategory(dto);
 
-    expect(categoryModel.findOne).toHaveBeenCalledWith({ category: dto.category });
+    expect(categoryModel.findOne).toHaveBeenCalledWith({
+      category: dto.category,
+    });
     expect(result).toEqual(
       expect.objectContaining({
         category: dto.category,
@@ -93,7 +95,10 @@ describe('CategoryService', () => {
       },
     ]);
 
-    await service.linkCategoryToPlayer({ category: 'Categoria A', playerId: 'player-2' } as any);
+    await service.linkCategoryToPlayer({
+      category: 'Categoria A',
+      playerId: 'player-2',
+    } as any);
 
     expect(categoryModel.findOneAndUpdate).toHaveBeenCalledWith(
       { category: 'Categoria A' },

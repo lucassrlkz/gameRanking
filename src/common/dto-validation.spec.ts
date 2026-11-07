@@ -1,4 +1,4 @@
-import {describe, expect, it} from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { validate } from 'class-validator';
 import { CreatePlayerDto } from '../players/dtos/createPlayer.dto';
 import { CreateCategoryDto } from '../category/dtos/createCategory.dto';

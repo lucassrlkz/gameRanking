@@ -148,8 +148,8 @@ export class ChallengesService {
     /**
      * Verifica se o jogador vencedor faz parte do desafio
      */
-    const playerFilter = challengeFound.players.filter(
-      (player) => player._id.equals(linkChallengeMatchDto.def._id)
+    const playerFilter = challengeFound.players.filter((player) =>
+      player._id.equals(linkChallengeMatchDto.def._id)
     );
 
     this.logger.log(`challengeFound: ${challengeFound}`);

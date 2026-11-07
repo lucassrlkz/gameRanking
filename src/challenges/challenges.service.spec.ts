@@ -1,4 +1,4 @@
-import {describe, beforeEach, expect, it, jest} from '@jest/globals';
+import { describe, beforeEach, expect, it, jest } from '@jest/globals';
 import { BadRequestException } from '@nestjs/common';
 import { ChallengesService } from './challenges.service';
 import { ChallengeStatus } from '../common/interfaces/challengeStatus.enum';
@@ -76,7 +76,9 @@ describe('ChallengesService', () => {
     };
 
     playersService.findAllPlayers.mockResolvedValue([player1, player2]);
-    categoryService.findPlayerCategory.mockResolvedValue({ category: 'Categoria A' });
+    categoryService.findPlayerCategory.mockResolvedValue({
+      category: 'Categoria A',
+    });
 
     const dto: any = {
       dateTimeChallenge: new Date('2025-02-01T10:00:00.000Z'),
@@ -86,7 +88,9 @@ describe('ChallengesService', () => {
 
     const result = await service.createChallenge(dto as any);
 
-    expect(categoryService.findPlayerCategory).toHaveBeenCalledWith(dto.applicant);
+    expect(categoryService.findPlayerCategory).toHaveBeenCalledWith(
+      dto.applicant
+    );
     expect(result.category).toBe('Categoria A');
     expect(result.status).toBe(ChallengeStatus.PENDENTE);
   });
@@ -109,7 +113,9 @@ describe('ChallengesService', () => {
     };
 
     playersService.findAllPlayers.mockResolvedValue([player1, player2]);
-    categoryService.findPlayerCategory.mockResolvedValue({ category: 'Categoria A' });
+    categoryService.findPlayerCategory.mockResolvedValue({
+      category: 'Categoria A',
+    });
 
     await expect(
       service.createChallenge({
