@@ -1,5 +1,8 @@
 # GameRanking
 
+#### Distribuição deste projeto em outros repositórios pois se tornou vários micro serviços.
+#### Este repositório não sera mais usado.
+
 API REST para organizar jogadores, categorias e desafios entre jogadores. Um desafio pode ser atualizado ao longo do seu ciclo de vida e, quando realizado, associado a uma partida com vencedor e resultados por set.
 
 ## Características
