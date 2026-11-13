@@ -1,6 +1,10 @@
 # GameRanking
 
 #### Distribuição deste projeto em outros repositórios pois se tornou vários micro serviços.
+
+Api gateway com comunicação RabbitMQ: [Api-gateway](https://github.com/lucassrlkz/micro-admin-backend-gameRanking)
+Micro backend gameRanking com comunicação RabbitMQ: [Micro-backend](https://github.com/lucassrlkz/micro-admin-backend-gameRanking)
+
 #### Este repositório não sera mais usado.
 
 API REST para organizar jogadores, categorias e desafios entre jogadores. Um desafio pode ser atualizado ao longo do seu ciclo de vida e, quando realizado, associado a uma partida com vencedor e resultados por set.
